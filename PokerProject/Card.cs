@@ -8,8 +8,8 @@ namespace PokerProject
 {
     internal class Card
     {
-        private string Face { get; }
-        private string Suit { get; }
+        public string Face { get; }
+        public string Suit { get; }
 
 
         //Two parameter constructor initializes cards face and suit

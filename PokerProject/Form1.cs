@@ -148,7 +148,107 @@ namespace PokerProject
             int yourHandScore;
             int theirHandScore;
 
-            
+            int numOfAce = 0;
+            int numOfTwo = 0;
+            int numOfThree = 0;
+            int numOfFour = 0;
+            int numOfFive = 0;
+            int numOfSix = 0;
+            int numOfSeven = 0;
+            int numOfEight = 0;
+            int numOfNine = 0;
+            int numOfTen = 0;
+            int numOfJack = 0;
+            int numOfQueen = 0;
+            int numOfKing = 0;
+
+            bool twoKind = false;
+            bool threeKind = false;
+            bool fourKind = false;
+
+            for (int i = 0; i < yourHand.Length; i+=1)
+            {
+                switch (yourHand[i].Face)
+                {
+                    case "Ace":
+                        numOfAce+=1;
+                        break;
+                    case "Duece":
+                        numOfTwo += 1;
+                        break;
+                    case "Three":
+                        numOfThree += 1;
+                        break;
+                    case "Four":
+                        numOfFour += 1;
+                        break;
+                    case "Five":
+                        numOfFive += 1;
+                        break;
+                    case "Six":
+                        numOfSix += 1;
+                        break;
+                    case "Seven":
+                        numOfSeven += 1;
+                        break;
+                    case "Eight":
+                        numOfEight += 1;
+                        break;
+                    case "Nine":
+                        numOfNine += 1;
+                        break;
+                    case "Ten":
+                        numOfTen += 1;
+                        break;
+                    case "Jack":
+                        numOfJack += 1;
+                        break;
+                    case "Queen":
+                        numOfQueen += 1;
+                        break;
+                    case "King":
+                        numOfKing += 1;
+                        break;
+                }
+            }
+            MessageBox.Show($"{numOfAce.ToString()}{numOfTwo.ToString()}{numOfThree.ToString()}{numOfFour.ToString()}" +
+                $"{numOfFive.ToString()}{numOfSix.ToString()}{numOfSeven.ToString()}{numOfEight.ToString()}{numOfNine.ToString()}" +
+                $"{numOfTen.ToString()}{numOfJack.ToString()}{numOfQueen.ToString()}{numOfKing.ToString()}");
+            if (numOfAce == 2|| numOfTwo == 1 || numOfThree == 2||numOfFour == 2 || numOfFive == 2||
+                numOfSix == 2 || numOfSeven == 2|| numOfEight == 2|| numOfNine == 2 || numOfTen ==2 ||
+                numOfJack == 2 || numOfQueen == 2 || numOfKing == 2)
+            {
+                twoKind = true;
+            }
+            if (numOfAce == 3 || numOfTwo == 3 || numOfThree == 3 || numOfFour == 3 || numOfFive == 3 ||
+                numOfSix == 3 || numOfSeven == 3 || numOfEight == 3 || numOfNine == 3 || numOfTen == 3 ||
+                numOfJack == 3 || numOfQueen == 3 || numOfKing == 3)
+            {
+
+                threeKind = true;
+                
+            }
+            if(numOfAce == 4 || numOfTwo == 4 || numOfThree == 4 || numOfFour == 4 || numOfFive == 4 ||
+                numOfSix == 4 || numOfSeven == 4 || numOfEight == 4 || numOfNine == 4 || numOfTen == 4 ||
+                numOfJack == 4 || numOfQueen == 4 || numOfKing == 4)
+            {
+                fourKind = true;
+                
+            }
+
+            if (twoKind == true)
+            {
+                MessageBox.Show("You have a pair");
+            }
+            if (threeKind == true)
+            {
+                MessageBox.Show("You have three of a kind");
+            }
+            if (fourKind == true )
+            {
+                MessageBox.Show("You have four of a kind");
+            }
+
         }
     }
 }
