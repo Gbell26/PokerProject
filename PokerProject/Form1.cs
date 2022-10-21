@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace PokerProject
 {
@@ -144,15 +145,99 @@ namespace PokerProject
             //Determin win conditions.
             //Compare card faces/suits to determine pairs etc.
             //assign int hand value based on cards in hand
+            int yourHandScore = 0;
+            int theirHandScore = 0;
+            //check hands for a straight
+            bool youStraight = straight(yourHand, 0);
+            bool themStraight = straight(theirHand, 0);
+            //check hands for two of a kind three of a kind four of a kind or fullhouse
+            int twoThreeFourKindScore = handValue(yourHand, 0);
+            int themtwoThreeFourKindScore = handValue(theirHand, 1);
 
-            int yourHandScore = twothreefourKind(yourHand, 0);
-            int theirHandScore = twothreefourKind(theirHand, 1);
 
-            if (yourHandScore > theirHandScore)
+            switch (twoThreeFourKindScore)
             {
-                MessageBox.Show("You win");
+                case 1:
+                    if (!youStraight)
+                    {
+                        MessageBox.Show("You have a pair");
+                        yourHandScore = 1;
+                    }
+                    break;
+                case 2:
+                    if (!youStraight)
+                    {
+                        MessageBox.Show("You have three of a kind");
+                        yourHandScore = 2;
+                    }
+                    break;
+                case 3:
+                    if (!youStraight)
+                    {
+                        MessageBox.Show("You have four of a kind");
+                        yourHandScore = 3;
+                    }
+                    break;
+                case 4:
+                    if (!youStraight)
+                    {
+                        MessageBox.Show("You have a full house");
+                        yourHandScore = 4;
+                    }
+                    break;
+                default:
+                    break;
+
             }
-            else if(yourHandScore<theirHandScore)
+            switch (themtwoThreeFourKindScore)
+            {
+                case 1:
+                    if (!themStraight)
+                    {
+                        MessageBox.Show("They have a pair");
+                        theirHandScore = 1;
+                    }
+                    break;
+                case 2:
+                    if (!themStraight)
+                    {
+                        MessageBox.Show("They have three of a kind");
+                        theirHandScore = 2;
+                    }
+                    break;
+                case 3:
+                    if (!themStraight)
+                    {
+                        MessageBox.Show("They have four of a kind");
+                        theirHandScore = 3;
+                    }
+                    break;
+                case 4:
+                    if (!themStraight)
+                    {
+                        MessageBox.Show("They have a full house");
+                        theirHandScore = 4;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if (youStraight)
+            {
+                MessageBox.Show("You have a straight");
+                yourHandScore = 5;
+            }
+            if (themStraight)
+            {
+                MessageBox.Show("They have a straight");
+                theirHandScore = 5;
+            }
+
+            if(yourHandScore > theirHandScore)
+            {
+                MessageBox.Show("You win!");
+            }
+            else if(yourHandScore < theirHandScore)
             {
                 MessageBox.Show("You lose");
             }
@@ -161,9 +246,10 @@ namespace PokerProject
                 MessageBox.Show("Tie");
             }
 
+
         }//end of show hand button
 
-        private int twothreefourKind(Card[] hand, int whichHand)
+        private int handValue(Card[] hand, int whichHand)
         {
             int numOfAce = 0;
             int numOfTwo = 0;
@@ -182,6 +268,7 @@ namespace PokerProject
             bool twoKind = false;
             bool threeKind = false;
             bool fourKind = false;
+            bool fullHouse = false;
 
             for (int i = 0; i < hand.Length; i += 1)
             {
@@ -228,8 +315,8 @@ namespace PokerProject
                         break;
                 }
             }
-          
-            if (numOfAce == 2 || numOfTwo == 1 || numOfThree == 2 || numOfFour == 2 || numOfFive == 2 ||
+
+            if (numOfAce == 2 || numOfTwo == 2 || numOfThree == 2 || numOfFour == 2 || numOfFive == 2 ||
                 numOfSix == 2 || numOfSeven == 2 || numOfEight == 2 || numOfNine == 2 || numOfTen == 2 ||
                 numOfJack == 2 || numOfQueen == 2 || numOfKing == 2)
             {
@@ -250,41 +337,30 @@ namespace PokerProject
                 fourKind = true;
 
             }
+            if (numOfAce == 2 || numOfTwo == 2 || numOfThree == 2 || numOfFour == 2 || numOfFive == 2 ||
+              numOfSix == 2 || numOfSeven == 2 || numOfEight == 2 || numOfNine == 2 || numOfTen == 2 ||
+              numOfJack == 2 || numOfQueen == 2 || numOfKing == 2 && numOfAce == 3 || numOfTwo == 3 || numOfThree == 3 || numOfFour == 3 || numOfFive == 3 ||
+               numOfSix == 3 || numOfSeven == 3 || numOfEight == 3 || numOfNine == 3 || numOfTen == 3 ||
+               numOfJack == 3 || numOfQueen == 3 || numOfKing == 3)
+            {
+                fullHouse = true;
+            }
+            if (fullHouse == true)
+            {
+                return 4;
+            }
 
             if (twoKind == true)
             {
-                if (whichHand == 0)
-                {
-                    MessageBox.Show("You have a pair");
-                }
-                else
-                {
-                    MessageBox.Show("They have a pair");
-                }
-                    return 1;
+                return 1;
             }
             if (threeKind == true)
             {
-                if (whichHand == 0)
-                {
-                    MessageBox.Show("You have three of a kind");
-                }
-                else
-                {
-                    MessageBox.Show("They have three of a kind");
-                }
                 return 2;
             }
             if (fourKind == true)
             {
-                if (whichHand == 0)
-                {
-                    MessageBox.Show("You have four of a kind");
-                }
-                else
-                {
-                    MessageBox.Show("They have four of a kind");
-                }
+ 
                 return 3;
             }
             else
@@ -292,5 +368,31 @@ namespace PokerProject
                 return 0;
             }
         }//End of twothreefourKindTheirHand
+
+         private bool straight(Card[] hand, int whichHand)
+         {
+            Card temp;
+
+            for (int i = 0; i < hand.Length - 1; i++)
+                for (int j = i + 1; j < hand.Length; j++)
+                    if (hand[i].faceintVal < hand[j].faceintVal)
+                    {
+
+                        temp = hand[i];
+                        hand[i] = hand[j];
+                        hand[j] = temp;
+                    }
+            if (hand[0].faceintVal - 1 == hand[1].faceintVal &&
+                hand[1].faceintVal - 1 == hand[2].faceintVal &&
+                hand[2].faceintVal - 1 == hand[3].faceintVal &&
+                hand[3].faceintVal - 1 == hand[4].faceintVal)
+            {
+                MessageBox.Show("You have a straight");
+                return true;
+            }
+            else return false;
+        }
+         
+           
     }
 }
