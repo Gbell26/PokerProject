@@ -145,9 +145,26 @@ namespace PokerProject
             //Compare card faces/suits to determine pairs etc.
             //assign int hand value based on cards in hand
 
-            int yourHandScore;
-            int theirHandScore;
+            int yourHandScore = twothreefourKind(yourHand, 0);
+            int theirHandScore = twothreefourKind(theirHand, 1);
 
+            if (yourHandScore > theirHandScore)
+            {
+                MessageBox.Show("You win");
+            }
+            else if(yourHandScore<theirHandScore)
+            {
+                MessageBox.Show("You lose");
+            }
+            else
+            {
+                MessageBox.Show("Tie");
+            }
+
+        }//end of show hand button
+
+        private int twothreefourKind(Card[] hand, int whichHand)
+        {
             int numOfAce = 0;
             int numOfTwo = 0;
             int numOfThree = 0;
@@ -166,12 +183,12 @@ namespace PokerProject
             bool threeKind = false;
             bool fourKind = false;
 
-            for (int i = 0; i < yourHand.Length; i+=1)
+            for (int i = 0; i < hand.Length; i += 1)
             {
-                switch (yourHand[i].Face)
+                switch (hand[i].Face)
                 {
                     case "Ace":
-                        numOfAce+=1;
+                        numOfAce += 1;
                         break;
                     case "Duece":
                         numOfTwo += 1;
@@ -211,11 +228,9 @@ namespace PokerProject
                         break;
                 }
             }
-            MessageBox.Show($"{numOfAce.ToString()}{numOfTwo.ToString()}{numOfThree.ToString()}{numOfFour.ToString()}" +
-                $"{numOfFive.ToString()}{numOfSix.ToString()}{numOfSeven.ToString()}{numOfEight.ToString()}{numOfNine.ToString()}" +
-                $"{numOfTen.ToString()}{numOfJack.ToString()}{numOfQueen.ToString()}{numOfKing.ToString()}");
-            if (numOfAce == 2|| numOfTwo == 1 || numOfThree == 2||numOfFour == 2 || numOfFive == 2||
-                numOfSix == 2 || numOfSeven == 2|| numOfEight == 2|| numOfNine == 2 || numOfTen ==2 ||
+          
+            if (numOfAce == 2 || numOfTwo == 1 || numOfThree == 2 || numOfFour == 2 || numOfFive == 2 ||
+                numOfSix == 2 || numOfSeven == 2 || numOfEight == 2 || numOfNine == 2 || numOfTen == 2 ||
                 numOfJack == 2 || numOfQueen == 2 || numOfKing == 2)
             {
                 twoKind = true;
@@ -226,29 +241,56 @@ namespace PokerProject
             {
 
                 threeKind = true;
-                
+
             }
-            if(numOfAce == 4 || numOfTwo == 4 || numOfThree == 4 || numOfFour == 4 || numOfFive == 4 ||
+            if (numOfAce == 4 || numOfTwo == 4 || numOfThree == 4 || numOfFour == 4 || numOfFive == 4 ||
                 numOfSix == 4 || numOfSeven == 4 || numOfEight == 4 || numOfNine == 4 || numOfTen == 4 ||
                 numOfJack == 4 || numOfQueen == 4 || numOfKing == 4)
             {
                 fourKind = true;
-                
+
             }
 
             if (twoKind == true)
             {
-                MessageBox.Show("You have a pair");
+                if (whichHand == 0)
+                {
+                    MessageBox.Show("You have a pair");
+                }
+                else
+                {
+                    MessageBox.Show("They have a pair");
+                }
+                    return 1;
             }
             if (threeKind == true)
             {
-                MessageBox.Show("You have three of a kind");
+                if (whichHand == 0)
+                {
+                    MessageBox.Show("You have three of a kind");
+                }
+                else
+                {
+                    MessageBox.Show("They have three of a kind");
+                }
+                return 2;
             }
-            if (fourKind == true )
+            if (fourKind == true)
             {
-                MessageBox.Show("You have four of a kind");
+                if (whichHand == 0)
+                {
+                    MessageBox.Show("You have four of a kind");
+                }
+                else
+                {
+                    MessageBox.Show("They have four of a kind");
+                }
+                return 3;
             }
-
-        }
+            else
+            {
+                return 0;
+            }
+        }//End of twothreefourKindTheirHand
     }
 }
